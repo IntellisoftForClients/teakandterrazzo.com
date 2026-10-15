@@ -1,0 +1,153 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model AdminUser {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String   @default("Admin")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model SiteSettings {
+  id              Int      @id @default(1)
+  brandName       String   @default("Teak & Terrazzo")
+  tagline         String   @default("Designing Beautiful Spaces Inspired by Modern living")
+  phone           String   @default("+91-9701059169")
+  phoneSecondary  String   @default("+91-9032722427")
+  address         String   @default("Flat # 604, Tower A, Candeur 40, Opp: D-Mart, Miyapur, Miyapur-Bachupally Road, Hyderabad, Telangana, India - 500049")
+  email           String   @default("interiors.studio@teakandterrazzo.com")
+  aboutText       String   @default("Welcome to Teak & Terrazzo, where thoughtful design meets exceptional craftsmanship. We are a boutique interior design and turnkey execution studio based in Hyderabad, dedicated to creating elegant, functional, and timeless spaces.")
+  businessHours   String   @default("10:00 AM to 6:00 PM (IST)")
+  mapsUrl         String   @default("https://www.google.com/maps/search/?api=1&query=Candeur40,+Miyapur,+Hyderabad,+Telangana+500049")
+  whatsapp        String   @default("https://wa.me/919701059169")
+  facebook        String   @default("#")
+  instagram       String   @default("https://www.instagram.com/interiors.designstudio2026")
+  twitter         String   @default("#")
+  linkedin        String   @default("#")
+  primaryColor    String   @default("#a67c52")
+  updatedAt       DateTime @updatedAt
+}
+
+model Service {
+  id        String   @id @default(cuid())
+  title     String
+  slug      String   @unique
+  summary   String
+  body      String   @default("")
+  imagePath String
+  sortOrder Int      @default(0)
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Project {
+  id               String   @id @default(cuid())
+  title            String
+  slug             String   @unique
+  category         String   @default("Residential")
+  imagePath        String
+  client           String   @default("")
+  location         String   @default("")
+  projectType      String   @default("")
+  projectSize      String   @default("")
+  budget           String   @default("")
+  completionDate   String   @default("")
+  designStyle      String   @default("")
+  servicesProvided String   @default("")
+  duration         String   @default("")
+  leadDesigner     String   @default("")
+  overview         String   @default("")
+  clientGoals      String   @default("")
+  challenges       String   @default("")
+  sortOrder        Int      @default(0)
+  published        Boolean  @default(true)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model BlogPost {
+  id          String    @id @default(cuid())
+  title       String
+  slug        String    @unique
+  excerpt     String    @default("")
+  body        String    @default("")
+  coverPath   String
+  authorName  String    @default("James Anderson")
+  authorRole  String    @default("Story Teller")
+  publishedAt DateTime  @default(now())
+  published   Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Testimonial {
+  id         String   @id @default(cuid())
+  quote      String
+  authorName String
+  authorDate String
+  avatarPath String
+  sortOrder  Int      @default(0)
+  published  Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model ProcessStep {
+  id        String   @id @default(cuid())
+  title     String
+  body      String
+  imagePath String
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ContactLead {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String   @default("")
+  service   String   @default("General")
+  budget    String   @default("")
+  timeline  String   @default("")
+  message   String
+  status    String   @default("new") // new | read | archived
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model MediaAsset {
+  id        String   @id @default(cuid())
+  path      String
+  alt       String   @default("")
+  mime      String   @default("")
+  createdAt DateTime @default(now())
+}
+
+model ClientLogo {
+  id        String   @id @default(cuid())
+  name      String   @default("")
+  imagePath String
+  sortOrder Int      @default(0)
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+/// Used by connect-pg-simple for Express sessions (do not drop)
+model session {
+  sid    String   @id @db.VarChar
+  sess   Json
+  expire DateTime @db.Timestamp(6)
+
+  @@index([expire], map: "IDX_session_expire")
+}

@@ -1,0 +1,33 @@
+<%- include('partials/head') %>
+<section class="page-hero" id="hero">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep">/</span>
+      <span>Blog</span>
+    </nav>
+    <h1>Interior Design Notes &amp; Insights</h1>
+    <p class="page-intro">Practical thinking on planning, materials, and the journey from concept to handover — from our Hyderabad studio.</p>
+  </div>
+</section>
+<section class="blog page-content">
+  <div class="container-wide">
+    <% if (!blogs || !blogs.length) { %>
+      <p class="reveal" style="text-align:center;color:var(--text-muted);">Articles will appear here as they are published.</p>
+    <% } else { %>
+    <div class="blog-grid">
+      <% blogs.forEach(function(post) { %>
+        <a href="/blog/<%= post.slug %>" class="blog-card reveal">
+          <div class="thumb"><img src="<%= post.coverPath %>" alt="<%= post.title %>" /></div>
+          <div class="body">
+            <div class="date"><%= post.publishedAt.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %></div>
+            <h5><%= post.title %></h5>
+            <% if (post.excerpt) { %><p style="color:var(--text-muted);margin-top:8px;font-size:0.95rem;line-height:1.5;"><%= post.excerpt %></p><% } %>
+          </div>
+        </a>
+      <% }) %>
+    </div>
+    <% } %>
+  </div>
+</section>
+<%- include('partials/footer') %>

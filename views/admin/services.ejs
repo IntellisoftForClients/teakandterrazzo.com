@@ -1,0 +1,27 @@
+<%- include('partials/layout-start') %>
+<div class="admin-top">
+  <h1>Services</h1>
+  <a class="btn btn-primary" href="/admin/services/new">Add service</a>
+</div>
+<div class="card">
+  <table>
+    <thead><tr><th></th><th>Title</th><th>Order</th><th>Published</th><th></th></tr></thead>
+    <tbody>
+      <% items.forEach(function(item) { %>
+        <tr>
+          <td><img class="thumb-sm" src="<%= item.imagePath %>" alt="" /></td>
+          <td><%= item.title %></td>
+          <td><%= item.sortOrder %></td>
+          <td><%= item.published ? 'Yes' : 'No' %></td>
+          <td class="row-actions">
+            <a class="btn btn-ghost btn-sm" href="/admin/services/<%= item.id %>/edit">Edit</a>
+            <form method="post" action="/admin/services/<%= item.id %>/delete" onsubmit="return confirm('Delete?');">
+              <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+<%- include('partials/layout-end') %>

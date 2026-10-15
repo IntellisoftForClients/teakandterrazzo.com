@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %> — Admin</title>
+  <meta name="robots" content="noindex, nofollow, noarchive" />
+  <meta name="googlebot" content="noindex, nofollow, noarchive" />
+  <meta name="referrer" content="no-referrer" />
+  <link rel="stylesheet" href="/css/admin.css" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicon-180.png" />
+</head>
+<body>
+<div class="admin-shell">
+  <div class="admin-backdrop" id="adminBackdrop" hidden></div>
+  <aside class="admin-sidebar" id="adminSidebar">
+    <div class="admin-sidebar-head">
+      <a class="admin-brand" href="/admin">
+        <img src="/assets/images/teak-terrazzo-icon.png" alt="" width="32" height="32" />
+        <span>Teak &amp; Terrazzo</span>
+      </a>
+      <button type="button" class="admin-sidebar-close" id="adminSidebarClose" aria-label="Close menu">×</button>
+    </div>
+    <nav class="admin-nav">
+      <a href="/admin" class="<%= currentPath === '/admin' ? 'active' : '' %>">Overview</a>
+      <a href="/admin/leads" class="<%= currentPath.startsWith('/admin/leads') ? 'active' : '' %>">Leads</a>
+      <a href="/admin/services" class="<%= currentPath.startsWith('/admin/services') ? 'active' : '' %>">Services</a>
+      <a href="/admin/projects" class="<%= currentPath.startsWith('/admin/projects') ? 'active' : '' %>">Projects</a>
+      <a href="/admin/blog" class="<%= currentPath.startsWith('/admin/blog') ? 'active' : '' %>">Blog</a>
+      <a href="/admin/testimonials" class="<%= currentPath.startsWith('/admin/testimonials') ? 'active' : '' %>">Testimonials</a>
+      <a href="/admin/client-logos" class="<%= currentPath.startsWith('/admin/client-logos') ? 'active' : '' %>">Client Logos</a>
+      <a href="/admin/process" class="<%= currentPath.startsWith('/admin/process') ? 'active' : '' %>">Process</a>
+      <a href="/admin/settings" class="<%= currentPath.startsWith('/admin/settings') ? 'active' : '' %>">Settings</a>
+      <a href="/" target="_blank">View site ↗</a>
+    </nav>
+    <form method="post" action="/admin/logout">
+      <button class="logout" type="submit">Log out</button>
+    </form>
+  </aside>
+  <main class="admin-main">
+    <div class="admin-mobile-bar">
+      <button type="button" class="admin-menu-toggle" id="adminMenuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="adminSidebar">
+        <span></span><span></span><span></span>
+      </button>
+      <a class="admin-mobile-brand" href="/admin">
+        <img src="/assets/images/teak-terrazzo-icon.png" alt="" width="28" height="28" />
+        <span>Admin</span>
+      </a>
+    </div>

@@ -1,0 +1,31 @@
+<%- include('partials/layout-start') %>
+<div class="admin-top">
+  <h1><%= item ? 'Edit post' : 'New post' %></h1>
+  <a class="btn btn-ghost" href="/admin/blog">Back</a>
+</div>
+<form class="card form-grid" method="post" action="<%= item ? '/admin/blog/' + item.id : '/admin/blog' %>" enctype="multipart/form-data">
+  <div>
+    <label>Title</label>
+    <input name="title" required value="<%= item ? item.title : '' %>" />
+  </div>
+  <div>
+    <label>Excerpt</label>
+    <textarea name="excerpt"><%= item ? item.excerpt : '' %></textarea>
+  </div>
+  <div>
+    <label>Body</label>
+    <textarea name="body"><%= item ? item.body : '' %></textarea>
+  </div>
+  <div>
+    <label>Published date</label>
+    <input name="publishedAt" type="date" value="<%= item ? item.publishedAt.toISOString().slice(0,10) : '' %>" />
+  </div>
+  <div>
+    <label>Cover image</label>
+    <% if (item) { %><img class="thumb-sm" src="<%= item.coverPath %>" alt="" style="margin-bottom:8px;" /><% } %>
+    <input name="image" type="file" accept="image/*" />
+  </div>
+  <label class="check"><input type="checkbox" name="published" <%= !item || item.published ? 'checked' : '' %> /> Published</label>
+  <div class="form-actions"><button class="btn btn-primary" type="submit">Save</button></div>
+</form>
+<%- include('partials/layout-end') %>

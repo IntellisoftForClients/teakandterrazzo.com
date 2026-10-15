@@ -1,0 +1,44 @@
+<%- include('partials/head') %>
+<section class="page-hero" id="hero">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep">/</span>
+      <a href="/services">Services</a>
+      <span class="sep">/</span>
+      <span><%= service.title %></span>
+    </nav>
+    <h1><%= service.title %></h1>
+  </div>
+</section>
+
+<section class="page-content">
+  <div class="container">
+    <div class="detail-hero-img reveal">
+      <img src="<%= service.imagePath %>" alt="<%= service.title %>" />
+    </div>
+    <p class="reveal" style="max-width:760px;margin:0 auto 20px;text-align:center;font-size:1.15rem;line-height:1.7;color:var(--text-muted);">
+      <%= service.summary %>
+    </p>
+
+    <div class="feature-list">
+      <% (features || []).forEach(function(feature, idx) { %>
+        <article class="feature-item reveal">
+          <div class="feature-num">(0<%= idx + 1 %>)</div>
+          <div>
+            <h3><%= feature.title %></h3>
+            <p><%= feature.body %></p>
+          </div>
+        </article>
+      <% }) %>
+    </div>
+
+    <div style="text-align:center;margin-top:48px;" class="reveal">
+      <a href="/contact" class="btn btn-dark">
+        Request a Consultation
+        <span class="btn-arrow"><img src="/assets/images/arrow-dark.svg" alt="" /></span>
+      </a>
+    </div>
+  </div>
+</section>
+<%- include('partials/footer') %>

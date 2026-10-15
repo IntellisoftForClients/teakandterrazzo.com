@@ -1,0 +1,27 @@
+<%- include('partials/layout-start') %>
+<div class="admin-top">
+  <h1>Blog</h1>
+  <a class="btn btn-primary" href="/admin/blog/new">Add post</a>
+</div>
+<div class="card">
+  <table>
+    <thead><tr><th></th><th>Title</th><th>Published</th><th>Date</th><th></th></tr></thead>
+    <tbody>
+      <% items.forEach(function(item) { %>
+        <tr>
+          <td><img class="thumb-sm" src="<%= item.coverPath %>" alt="" /></td>
+          <td><%= item.title %></td>
+          <td><%= item.published ? 'Yes' : 'No' %></td>
+          <td><%= item.publishedAt.toLocaleDateString() %></td>
+          <td class="row-actions">
+            <a class="btn btn-ghost btn-sm" href="/admin/blog/<%= item.id %>/edit">Edit</a>
+            <form method="post" action="/admin/blog/<%= item.id %>/delete" onsubmit="return confirm('Delete?');">
+              <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+<%- include('partials/layout-end') %>

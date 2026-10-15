@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+  <meta name="robots" content="noindex, nofollow, noarchive" />
+  <meta name="googlebot" content="noindex, nofollow, noarchive" />
+  <meta name="referrer" content="no-referrer" />
+  <link rel="stylesheet" href="/css/admin.css" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicon-180.png" />
+</head>
+<body class="login-body">
+  <div class="login-shell">
+    <aside class="login-visual" aria-hidden="true">
+      <img src="/assets/images/hero-living-room-modern.jpg" alt="" />
+      <div class="login-visual-shade"></div>
+      <div class="login-visual-brand">
+        <span class="login-mark">
+          <img src="/assets/images/teak-terrazzo-icon.png" alt="" width="40" height="40" />
+        </span>
+        <span>Teak &amp; Terrazzo</span>
+      </div>
+    </aside>
+
+    <main class="login-panel">
+      <form class="login-card" method="post" action="/admin/login" autocomplete="on">
+        <div class="login-card-head">
+          <div class="login-card-brand">
+            <img src="/assets/images/teak-terrazzo-icon.png" alt="" width="36" height="36" />
+            <p class="login-kicker">CMS</p>
+          </div>
+          <h1>Sign in</h1>
+        </div>
+
+        <% if (error) { %>
+          <div class="login-error" role="alert"><%= error %></div>
+        <% } %>
+
+        <div class="login-fields">
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required autocomplete="username" />
+          </div>
+          <div class="field">
+            <label for="password">Password</label>
+            <div class="password-wrap">
+              <input id="password" name="password" type="password" required autocomplete="current-password" />
+              <button type="button" class="password-toggle" id="passwordToggle" aria-label="Show password">Show</button>
+            </div>
+          </div>
+          <button class="btn btn-primary login-submit" type="submit">Sign in</button>
+        </div>
+
+        <a class="login-back" href="/">Back to website</a>
+      </form>
+    </main>
+  </div>
+  <script>
+    (function () {
+      var input = document.getElementById('password');
+      var btn = document.getElementById('passwordToggle');
+      if (!input || !btn) return;
+      btn.addEventListener('click', function () {
+        var show = input.type === 'password';
+        input.type = show ? 'text' : 'password';
+        btn.textContent = show ? 'Hide' : 'Show';
+        btn.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+      });
+    })();
+  </script>
+</body>
+</html>

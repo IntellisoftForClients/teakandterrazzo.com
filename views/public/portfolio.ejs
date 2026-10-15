@@ -1,0 +1,44 @@
+<%- include('partials/head') %>
+<section class="page-hero" id="hero">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep">/</span>
+      <span>Portfolio</span>
+    </nav>
+    <h1>Interior Design Portfolio</h1>
+    <p class="page-intro">Selected residential and commercial interiors in Hyderabad shaped by planning, material clarity, and careful execution.</p>
+  </div>
+</section>
+<section class="works page-content">
+  <div class="container-wide">
+    <% if (!projects || !projects.length) { %>
+      <p class="reveal" style="text-align:center;color:var(--text-muted);">Projects will appear here as they are published.</p>
+    <% } else { %>
+    <div class="portfolio-grid">
+      <% projects.forEach(function(project) { %>
+        <a href="/portfolio/<%= project.slug %>" class="work-card reveal">
+          <img src="<%= project.imagePath %>" alt="<%= project.title %>" />
+          <div class="work-meta">
+            <span class="pill pill-light"><%= project.category %></span>
+            <h3><%= project.title %></h3>
+          </div>
+        </a>
+      <% }) %>
+    </div>
+    <% } %>
+
+    <div class="gallery-provision reveal">
+      <span class="pill">Gallery</span>
+      <h2 class="section-title" style="margin-top:12px;">Visual library</h2>
+      <p class="brief-lead">A dedicated gallery for finished interiors, preferred feature images, and before/after sets. Content will be added as project photography is shared.</p>
+      <div class="gallery-grid">
+        <figure class="gallery-slot"><img src="/assets/images/project-nyla-living.jpg" alt="Interior gallery placeholder — living space" /><figcaption>Living</figcaption></figure>
+        <figure class="gallery-slot"><img src="/assets/images/project-nyla-kitchen.jpg" alt="Interior gallery placeholder — kitchen" /><figcaption>Kitchen</figcaption></figure>
+        <figure class="gallery-slot"><img src="/assets/images/project-nyla-bedroom.jpg" alt="Interior gallery placeholder — bedroom" /><figcaption>Bedroom</figcaption></figure>
+        <figure class="gallery-slot"><img src="/assets/images/service-custom-furniture.jpg" alt="Interior gallery placeholder — furniture" /><figcaption>Furniture</figcaption></figure>
+      </div>
+    </div>
+  </div>
+</section>
+<%- include('partials/footer') %>

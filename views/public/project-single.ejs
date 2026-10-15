@@ -1,0 +1,46 @@
+<%- include('partials/head') %>
+<section class="page-hero" id="hero">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep">/</span>
+      <a href="/portfolio">Portfolio</a>
+      <span class="sep">/</span>
+      <span><%= project.title %></span>
+    </nav>
+    <h1><%= project.title %></h1>
+  </div>
+</section>
+
+<section class="page-content">
+  <div class="container-wide">
+    <div class="detail-hero-img reveal">
+      <img src="<%= project.imagePath %>" alt="<%= project.title %>" />
+    </div>
+
+    <div class="detail-layout">
+      <aside class="detail-meta reveal">
+        <div class="item"><strong>Client</strong><span><%= project.client || '—' %></span></div>
+        <div class="item"><strong>Location</strong><span><%= project.location || '—' %></span></div>
+        <div class="item"><strong>Project Type</strong><span><%= project.projectType || project.category %></span></div>
+        <div class="item"><strong>Project Size</strong><span><%= project.projectSize || '—' %></span></div>
+        <div class="item"><strong>Budget</strong><span><%= project.budget || '—' %></span></div>
+        <div class="item"><strong>Completion Date</strong><span><%= project.completionDate || '—' %></span></div>
+        <div class="item"><strong>Design Style</strong><span><%= project.designStyle || '—' %></span></div>
+        <div class="item"><strong>Services Provided</strong><span><%= project.servicesProvided || '—' %></span></div>
+        <div class="item"><strong>Project Duration</strong><span><%= project.duration || '—' %></span></div>
+        <div class="item"><strong>Lead Designer</strong><span><%= project.leadDesigner || '—' %></span></div>
+      </aside>
+
+      <div class="detail-copy reveal">
+        <h5>Project Overview</h5>
+        <p><%= project.overview || project.title + ' is a thoughtfully designed interior project crafted to balance style, comfort, and everyday function.' %></p>
+        <h5>Client Goals</h5>
+        <p><%= project.clientGoals || 'The client wanted a refined modern interior that reflected personal taste while optimizing space for daily living and entertaining.' %></p>
+        <h5>Design Challenges</h5>
+        <p><%= project.challenges || 'The challenge was creating an open, airy feel within structural constraints while maintaining warmth, storage, and a cohesive material palette.' %></p>
+      </div>
+    </div>
+  </div>
+</section>
+<%- include('partials/footer') %>

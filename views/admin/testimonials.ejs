@@ -1,0 +1,27 @@
+<%- include('partials/layout-start') %>
+<div class="admin-top">
+  <h1>Testimonials</h1>
+  <a class="btn btn-primary" href="/admin/testimonials/new">Add testimonial</a>
+</div>
+<div class="card">
+  <table>
+    <thead><tr><th></th><th>Author</th><th>Date</th><th>Published</th><th></th></tr></thead>
+    <tbody>
+      <% items.forEach(function(item) { %>
+        <tr>
+          <td><img class="thumb-sm" style="border-radius:50%;width:42px;height:42px;" src="<%= item.avatarPath %>" alt="" /></td>
+          <td><%= item.authorName %></td>
+          <td><%= item.authorDate %></td>
+          <td><%= item.published ? 'Yes' : 'No' %></td>
+          <td class="row-actions">
+            <a class="btn btn-ghost btn-sm" href="/admin/testimonials/<%= item.id %>/edit">Edit</a>
+            <form method="post" action="/admin/testimonials/<%= item.id %>/delete" onsubmit="return confirm('Delete?');">
+              <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+<%- include('partials/layout-end') %>

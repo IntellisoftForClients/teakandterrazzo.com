@@ -1,0 +1,35 @@
+<%- include('partials/layout-start') %>
+<div class="admin-top">
+  <h1>Overview</h1>
+</div>
+<div class="stats">
+  <div class="stat"><div class="label">New leads</div><div class="value"><%= stats.newLeads %></div></div>
+  <div class="stat"><div class="label">Total leads</div><div class="value"><%= stats.totalLeads %></div></div>
+  <div class="stat"><div class="label">Services</div><div class="value"><%= stats.services %></div></div>
+  <div class="stat"><div class="label">Projects</div><div class="value"><%= stats.projects %></div></div>
+</div>
+<div class="card">
+  <h2>Recent contact messages</h2>
+  <% if (!recentLeads.length) { %>
+    <p style="color:var(--muted);">No leads yet.</p>
+  <% } else { %>
+    <div class="table-wrap">
+    <table>
+      <thead><tr><th>Name</th><th>Email</th><th>Service</th><th>Status</th><th>Date</th><th></th></tr></thead>
+      <tbody>
+        <% recentLeads.forEach(function(lead) { %>
+          <tr>
+            <td><%= lead.name %></td>
+            <td><%= lead.email %></td>
+            <td><%= lead.service %></td>
+            <td><span class="badge <%= lead.status %>"><%= lead.status %></span></td>
+            <td><%= lead.createdAt.toLocaleString() %></td>
+            <td><a class="btn btn-ghost btn-sm" href="/admin/leads/<%= lead.id %>">Open</a></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+    </div>
+  <% } %>
+</div>
+<%- include('partials/layout-end') %>

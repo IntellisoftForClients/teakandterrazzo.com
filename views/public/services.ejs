@@ -1,0 +1,248 @@
+<%- include('partials/head') %>
+<section class="page-hero" id="hero">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep">/</span>
+      <span>Services</span>
+    </nav>
+    <h1>Interior Design Services</h1>
+    <p class="page-intro">At Teak &amp; Terrazzo, we don’t just design interiors — we create spaces. Boutique design consultancy and complete turnkey execution for residential and light commercial projects in Hyderabad.</p>
+  </div>
+</section>
+
+<section class="services page-content">
+  <div class="container-wide">
+    <div class="section-head reveal">
+      <span class="pill">What We Offer</span>
+      <h2 class="section-title">Core Services</h2>
+    </div>
+    <div class="services-list">
+      <% services.forEach(function(service) { %>
+        <a href="/services/<%= service.slug %>" class="service-card reveal">
+          <div class="service-copy">
+            <h3><%= service.title %></h3>
+            <p><%= service.summary %></p>
+            <span class="link-arrow">See More <img src="/assets/images/arrow.svg" alt="" /></span>
+          </div>
+          <div class="thumb"><img src="<%= service.imagePath %>" alt="<%= service.title %>" /></div>
+        </a>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<section class="page-content" style="padding-top:0;">
+  <div class="container-wide">
+    <div class="section-head reveal">
+      <span class="pill">Full Scope</span>
+      <h2 class="section-title">Everything we deliver</h2>
+    </div>
+    <div class="brief-grid reveal">
+      <article class="brief-card">
+        <h3>Design &amp; Planning</h3>
+        <ul>
+          <li>Interior Design Consultancy</li>
+          <li>Space Planning</li>
+          <li>2D Layouts &amp; 3D Visualizations</li>
+          <li>Material Selection</li>
+          <li>BOQ &amp; Cost Estimation</li>
+        </ul>
+      </article>
+      <article class="brief-card">
+        <h3>Fit-Out &amp; Craft</h3>
+        <ul>
+          <li>Modular Kitchens</li>
+          <li>Wardrobes &amp; Storage Solutions</li>
+          <li>Custom Furniture</li>
+          <li>False Ceiling Systems</li>
+          <li>Electrical &amp; Lighting Works</li>
+          <li>Painting &amp; Wall Finishes</li>
+          <li>Flooring Solutions</li>
+          <li>Soft Furnishings &amp; Décor</li>
+        </ul>
+      </article>
+      <article class="brief-card">
+        <h3>Complete Turnkey Execution</h3>
+        <ul>
+          <li>Site Measurement</li>
+          <li>Concept Design</li>
+          <li>Procurement</li>
+          <li>Site Supervision</li>
+          <li>Quality Checks</li>
+          <li>Final Installation</li>
+          <li>Project Handover</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="page-content" style="padding-top:0;">
+  <div class="container-wide">
+    <div class="brief-split reveal">
+      <div>
+        <span class="pill">Residential</span>
+        <h2 class="section-title" style="margin-top:12px;">Homes we design</h2>
+        <p class="brief-lead">Apartments, villas, independent houses, luxury homes, and gated-community residences.</p>
+        <ul class="brief-tags">
+          <li>Living Rooms</li>
+          <li>Bedrooms</li>
+          <li>Kitchens</li>
+          <li>Dining Areas</li>
+          <li>Bathrooms</li>
+          <li>Home Offices</li>
+          <li>Balconies</li>
+          <li>Utility Areas</li>
+          <li>Entertainment Rooms</li>
+        </ul>
+      </div>
+      <div>
+        <span class="pill">Commercial</span>
+        <h2 class="section-title" style="margin-top:12px;">Spaces we shape</h2>
+        <p class="brief-lead">Light commercial interiors that support brand, productivity, and customer experience.</p>
+        <ul class="brief-tags">
+          <li>Corporate Offices</li>
+          <li>Retail Stores</li>
+          <li>Boutique Showrooms</li>
+          <li>Studios</li>
+          <li>Reception Areas</li>
+          <li>Meeting Rooms</li>
+          <li>Cafés</li>
+          <li>Small Commercial Spaces</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="page-content" style="padding-top:0;">
+  <div class="container-wide">
+    <div class="section-head reveal">
+      <span class="pill">Process</span>
+      <h2 class="section-title">Our design process</h2>
+    </div>
+    <ol class="process-grid reveal">
+      <li><strong>01</strong><span>Initial Consultation</span></li>
+      <li><strong>02</strong><span>Site Visit &amp; Measurements</span></li>
+      <li><strong>03</strong><span>Concept Development</span></li>
+      <li><strong>04</strong><span>Space Planning</span></li>
+      <li><strong>05</strong><span>Material Selection</span></li>
+      <li><strong>06</strong><span>3D Visualization</span></li>
+      <li><strong>07</strong><span>BOQ &amp; Cost Approval</span></li>
+      <li><strong>08</strong><span>Production &amp; Procurement</span></li>
+      <li><strong>09</strong><span>Site Execution</span></li>
+      <li><strong>10</strong><span>Quality Inspection</span></li>
+      <li><strong>11</strong><span>Final Styling</span></li>
+      <li><strong>12</strong><span>Project Handover</span></li>
+    </ol>
+  </div>
+</section>
+
+<section class="page-content" style="padding-top:0;">
+  <div class="container-wide">
+    <div class="brief-split reveal">
+      <div>
+        <span class="pill">Quality</span>
+        <h2 class="section-title" style="margin-top:12px;">Standards we follow</h2>
+        <ul class="brief-check">
+          <li>Premium branded materials</li>
+          <li>Skilled workmanship</li>
+          <li>Detailed finishing inspections</li>
+          <li>Standardized execution processes</li>
+          <li>Client approvals at key milestones</li>
+          <li>Comprehensive snag rectification before handover</li>
+        </ul>
+      </div>
+      <div>
+        <span class="pill">Materials</span>
+        <h2 class="section-title" style="margin-top:12px;">What we work with</h2>
+        <ul class="brief-tags">
+          <li>Engineered Wood</li>
+          <li>Marine Plywood</li>
+          <li>HDHMR Boards</li>
+          <li>Natural Veneers</li>
+          <li>Laminates</li>
+          <li>Acrylic Finishes</li>
+          <li>PU Paint</li>
+          <li>Glass</li>
+          <li>Metal</li>
+          <li>Quartz</li>
+          <li>Granite</li>
+          <li>Marble</li>
+          <li>Terrazzo</li>
+          <li>Premium Hardware</li>
+          <li>Decorative Lighting</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="page-content" style="padding-top:0;">
+  <div class="container-wide">
+    <div class="brief-split reveal">
+      <div>
+        <span class="pill">Industries</span>
+        <h2 class="section-title" style="margin-top:12px;">Sectors we serve</h2>
+        <ul class="brief-tags">
+          <li>Residential</li>
+          <li>Hospitality</li>
+          <li>Retail</li>
+          <li>Corporate Offices</li>
+          <li>Healthcare Clinics</li>
+          <li>Educational Spaces</li>
+          <li>Boutique Commercial Projects</li>
+        </ul>
+      </div>
+      <div>
+        <span class="pill">Project Management</span>
+        <h2 class="section-title" style="margin-top:12px;">How projects stay on track</h2>
+        <ul class="brief-check">
+          <li>Detailed planning</li>
+          <li>Weekly progress updates</li>
+          <li>Budget monitoring</li>
+          <li>Vendor coordination</li>
+          <li>Quality audits</li>
+          <li>Timeline tracking</li>
+          <li>Final documentation</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="page-content" style="padding-top:0;padding-bottom:var(--section-y);">
+  <div class="container-wide">
+    <div class="brief-split reveal">
+      <div>
+        <span class="pill">Safety &amp; Compliance</span>
+        <h2 class="section-title" style="margin-top:12px;">Responsible site practice</h2>
+        <ul class="brief-check">
+          <li>Safe working practices</li>
+          <li>Electrical safety standards</li>
+          <li>Material quality inspections</li>
+          <li>Clean site management</li>
+          <li>Responsible waste disposal</li>
+        </ul>
+      </div>
+      <div>
+        <span class="pill">Our Commitment</span>
+        <h2 class="section-title" style="margin-top:12px;">Every client receives</h2>
+        <ul class="brief-check">
+          <li>Dedicated project support</li>
+          <li>Transparent pricing</li>
+          <li>Professional communication</li>
+          <li>Superior craftsmanship</li>
+          <li>Reliable delivery</li>
+          <li>After-project assistance</li>
+        </ul>
+        <a href="/contact" class="btn btn-dark" style="margin-top:28px;">
+          Book a Consultation
+          <span class="btn-arrow"><img src="/assets/images/arrow-dark.svg" alt="" /></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+<%- include('partials/footer') %>

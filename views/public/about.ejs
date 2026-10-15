@@ -1,0 +1,116 @@
+<%- include('partials/head') %>
+<section class="page-hero" id="hero">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep">/</span>
+      <span>About Us</span>
+    </nav>
+    <h1>About <%= settings.brandName %></h1>
+    <p class="page-intro"><%= settings.tagline || 'Designing Beautiful Spaces Inspired by Modern Living' %> — boutique interior design in Hyderabad.</p>
+  </div>
+</section>
+
+<section class="about page-content" style="padding-top:80px;">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-brand reveal">
+        <img
+          src="/assets/images/teak-terrazzo-logo.jpg"
+          alt="Teak &amp; Terrazzo Interior Design Studio"
+          width="720"
+          height="720"
+        />
+      </div>
+      <div class="about-copy reveal">
+        <span class="pill">Our Studio</span>
+        <p class="designer-label">Boutique Interior Design Studio · Hyderabad</p>
+        <h2 class="about-headline"><%= settings.aboutText %></h2>
+        <a href="/contact" class="btn btn-dark">
+          Book a Consultation
+          <span class="btn-arrow"><img src="/assets/images/arrow-dark.svg" alt="" /></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="page-content" style="padding-top:20px;">
+  <div class="container reveal" style="max-width:760px;">
+    <h2 class="section-title" style="margin-bottom:16px;">Our Story</h2>
+    <p style="color:var(--text-muted);line-height:1.7;font-size:1.05rem;margin-bottom:14px;">
+      Teak &amp; Terrazzo was founded with a simple vision: to create thoughtfully designed spaces that bring together aesthetics, functionality, craftsmanship, and modern living.
+    </p>
+    <p style="color:var(--text-muted);line-height:1.7;font-size:1.05rem;margin-bottom:14px;">
+      Whether it’s a contemporary apartment, a luxurious villa, a stylish office, or a retail space, our goal is simple — to deliver interiors that exceed expectations in design, quality, and execution. From the initial concept to final handover, we manage every aspect of the project with meticulous attention to detail.
+    </p>
+    <p style="color:var(--text-muted);line-height:1.7;font-size:1.05rem;margin-bottom:14px;">
+      Based in Hyderabad, we believe every space has its own character and every client has a unique way of living and working. Our approach combines creative interior design with practical space planning and carefully coordinated execution — from concept and 2D planning to 3D visualization, material selection, detailing, and final handover.
+    </p>
+    <p style="color:var(--text-muted);line-height:1.7;font-size:1.05rem;">
+      The name Teak &amp; Terrazzo reflects our design philosophy: the warmth and timeless character of teak, combined with the contemporary texture and versatility of terrazzo — interiors that balance natural warmth, modern expression, durability, and individuality.
+    </p>
+  </div>
+</section>
+
+<section class="stats" id="stats">
+  <div class="container-wide">
+    <div class="stats-grid">
+      <article class="stat-card reveal">
+        <div class="stat-icon"><img src="/assets/images/icon-handshake.svg" alt="" /></div>
+        <div class="stat-value">Design</div>
+        <div class="stat-label">Person-first interiors</div>
+      </article>
+      <article class="stat-card reveal">
+        <div class="stat-icon"><img src="/assets/images/icon-nodes.svg" alt="" /></div>
+        <div class="stat-value">Plan</div>
+        <div class="stat-label">Precise space planning</div>
+      </article>
+      <article class="stat-card reveal">
+        <div class="stat-icon"><img src="/assets/images/icon-bulb.svg" alt="" /></div>
+        <div class="stat-value">Craft</div>
+        <div class="stat-label">Quality materials &amp; detailing</div>
+      </article>
+      <article class="stat-card reveal">
+        <div class="stat-icon"><img src="/assets/images/icon-dots.svg" alt="" /></div>
+        <div class="stat-value">Deliver</div>
+        <div class="stat-label">Turnkey execution</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="page-content" style="padding-top:40px;">
+  <div class="container-wide">
+    <div class="mission-block reveal">
+      <div>
+        <span class="pill">Our Philosophy</span>
+        <h2 style="margin-top:16px;">Understand. Imagine. Design. Refine. Execute.</h2>
+        <p>We first understand the person and the space. Then we explore possibilities, develop the design, refine every important detail, and bring the vision to life through coordinated execution.</p>
+        <a href="/contact" class="btn btn-dark">
+          Contact Us
+          <span class="btn-arrow"><img src="/assets/images/arrow-dark.svg" alt="" /></span>
+        </a>
+      </div>
+      <div class="mission-visual">
+        <img src="/assets/images/service-turnkey-handover.jpg" alt="Teak & Terrazzo interior craftsmanship" />
+      </div>
+    </div>
+
+    <div style="margin-top:80px;" class="reveal">
+      <div class="section-head">
+        <span class="pill">Design Approach</span>
+        <h2 class="section-title">How we work</h2>
+      </div>
+      <div class="feature-list">
+        <article class="feature-item"><div class="feature-num">(01)</div><div><h3>Design Around the Person</h3><p>Your lifestyle, routines, and priorities shape the space — not a fixed style template.</p></div></article>
+        <article class="feature-item"><div class="feature-num">(02)</div><div><h3>Beauty with Purpose</h3><p>Every layout, material, light, and detail earns its place in daily living.</p></div></article>
+        <article class="feature-item"><div class="feature-num">(03)</div><div><h3>Timeless, Not Trend-Driven</h3><p>Contemporary ideas with lasting materials, proportions, and textures.</p></div></article>
+        <article class="feature-item"><div class="feature-num">(04)</div><div><h3>Design to Execution</h3><p>Concepts connect directly to drawings, materials, coordination, and site delivery.</p></div></article>
+        <article class="feature-item"><div class="feature-num">(05)</div><div><h3>Detail Makes the Difference</h3><p>Alignments, junctions, hardware, and finishing details give a space its character.</p></div></article>
+        <article class="feature-item"><div class="feature-num">(06)</div><div><h3>Honest &amp; Collaborative</h3><p>Clear communication, realistic budgets, and partnership throughout the journey.</p></div></article>
+      </div>
+    </div>
+  </div>
+</section>
+<%- include('partials/footer') %>

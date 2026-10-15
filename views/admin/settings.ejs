@@ -1,0 +1,215 @@
+<%- include('partials/layout-start') %>
+<% const brandColor = (settings.primaryColor || defaultPrimary).toLowerCase(); %>
+<div class="admin-top">
+  <h1>Settings</h1>
+</div>
+<% if (saved) { %><div class="flash">Settings saved.</div><% } %>
+<form class="card form-grid" method="post" action="/admin/settings" id="settingsForm">
+  <div class="color-theme-block">
+    <label>Brand color</label>
+    <p class="field-hint">Pick a color, then click Save settings to update the public website. Soft neutrals work best.</p>
+    <div class="color-picker-row">
+      <input
+        type="color"
+        id="primaryColorWheel"
+        value="<%= brandColor %>"
+        aria-label="Brand color wheel"
+      />
+      <input
+        type="text"
+        name="primaryColor"
+        id="primaryColorHex"
+        value="<%= brandColor %>"
+        pattern="^#[0-9a-fA-F]{6}$"
+        maxlength="7"
+        spellcheck="false"
+        autocomplete="off"
+        required
+      />
+      <button type="button" class="btn btn-ghost btn-sm" id="resetPrimaryColor">Reset to default</button>
+    </div>
+    <p class="swatch-label">Quick picks</p>
+    <div class="color-swatches" id="colorPresets" role="listbox" aria-label="Brand color presets">
+      <button type="button" class="swatch" data-color="#a67c52" style="background:#a67c52" title="Teak" aria-label="Teak"></button>
+      <button type="button" class="swatch" data-color="#8b6540" style="background:#8b6540" title="Walnut" aria-label="Walnut"></button>
+      <button type="button" class="swatch" data-color="#6b4f32" style="background:#6b4f32" title="Espresso" aria-label="Espresso"></button>
+      <button type="button" class="swatch" data-color="#c4a882" style="background:#c4a882" title="Sand" aria-label="Sand"></button>
+      <button type="button" class="swatch" data-color="#5a7d4a" style="background:#5a7d4a" title="Olive" aria-label="Olive"></button>
+      <button type="button" class="swatch" data-color="#3f6f6a" style="background:#3f6f6a" title="Sage teal" aria-label="Sage teal"></button>
+      <button type="button" class="swatch" data-color="#4a6fa5" style="background:#4a6fa5" title="Slate blue" aria-label="Slate blue"></button>
+      <button type="button" class="swatch" data-color="#9a5b4a" style="background:#9a5b4a" title="Terracotta" aria-label="Terracotta"></button>
+    </div>
+    <p class="swatch-label">Palette preview — click to use</p>
+    <div class="color-swatches" id="colorSwatches">
+      <button type="button" class="swatch" data-role="primary" data-color="<%= palette.teak %>" style="background:<%= palette.teak %>" title="Primary" aria-label="Use primary shade"></button>
+      <button type="button" class="swatch" data-role="deep" data-color="<%= palette.teakDeep %>" style="background:<%= palette.teakDeep %>" title="Deep" aria-label="Use deep shade"></button>
+      <button type="button" class="swatch" data-role="soft" data-color="<%= palette.teakSoft %>" style="background:<%= palette.teakSoft %>" title="Soft" aria-label="Use soft shade"></button>
+      <button type="button" class="swatch" data-role="cream" data-color="<%= palette.cream %>" style="background:<%= palette.cream %>" title="Cream" aria-label="Use cream shade"></button>
+    </div>
+  </div>
+  <div>
+    <label>Brand name</label>
+    <input name="brandName" required value="<%= settings.brandName %>" />
+  </div>
+  <div>
+    <label>Tagline</label>
+    <input name="tagline" value="<%= settings.tagline || '' %>" />
+  </div>
+  <div>
+    <label>Phone</label>
+    <input name="phone" value="<%= settings.phone %>" />
+  </div>
+  <div>
+    <label>Secondary phone</label>
+    <input name="phoneSecondary" value="<%= settings.phoneSecondary || '' %>" />
+  </div>
+  <div>
+    <label>WhatsApp link</label>
+    <input name="whatsapp" value="<%= settings.whatsapp || '' %>" />
+  </div>
+  <div>
+    <label>Business hours</label>
+    <input name="businessHours" value="<%= settings.businessHours || '' %>" />
+  </div>
+  <div>
+    <label>Address</label>
+    <input name="address" value="<%= settings.address %>" />
+  </div>
+  <div>
+    <label>Google Maps URL</label>
+    <input name="mapsUrl" value="<%= settings.mapsUrl || '' %>" />
+  </div>
+  <div>
+    <label>Email</label>
+    <input name="email" type="email" value="<%= settings.email %>" />
+  </div>
+  <div>
+    <label>About text</label>
+    <textarea name="aboutText"><%= settings.aboutText %></textarea>
+  </div>
+  <div>
+    <label>Facebook URL</label>
+    <input name="facebook" value="<%= settings.facebook %>" />
+  </div>
+  <div>
+    <label>Instagram URL</label>
+    <input name="instagram" value="<%= settings.instagram %>" />
+  </div>
+  <div>
+    <label>Twitter URL</label>
+    <input name="twitter" value="<%= settings.twitter %>" />
+  </div>
+  <div>
+    <label>LinkedIn URL</label>
+    <input name="linkedin" value="<%= settings.linkedin %>" />
+  </div>
+  <div class="form-actions"><button class="btn btn-primary" type="submit">Save settings</button></div>
+</form>
+<script>
+(function () {
+  var DEFAULT = String(<%- JSON.stringify(defaultPrimary) %>).toLowerCase();
+  var wheel = document.getElementById('primaryColorWheel');
+  var hex = document.getElementById('primaryColorHex');
+  var resetBtn = document.getElementById('resetPrimaryColor');
+  var swatches = document.getElementById('colorSwatches');
+  var presets = document.getElementById('colorPresets');
+  if (!wheel || !hex || !resetBtn) return;
+
+  function normalize(value) {
+    var v = String(value || '').trim().toLowerCase();
+    if (!v) return null;
+    if (v.charAt(0) !== '#') v = '#' + v;
+    if (/^#[0-9a-f]{3}$/.test(v)) {
+      v = '#' + v[1] + v[1] + v[2] + v[2] + v[3] + v[3];
+    }
+    if (!/^#[0-9a-f]{6}$/.test(v)) return null;
+    return v;
+  }
+
+  function hexToRgb(h) {
+    return {
+      r: parseInt(h.slice(1, 3), 16),
+      g: parseInt(h.slice(3, 5), 16),
+      b: parseInt(h.slice(5, 7), 16)
+    };
+  }
+
+  function rgbToHex(r, g, b) {
+    function to(n) {
+      return Math.max(0, Math.min(255, Math.round(n))).toString(16).padStart(2, '0');
+    }
+    return '#' + to(r) + to(g) + to(b);
+  }
+
+  function mixWhite(h, amount) {
+    var c = hexToRgb(h);
+    return rgbToHex(
+      c.r + (255 - c.r) * amount,
+      c.g + (255 - c.g) * amount,
+      c.b + (255 - c.b) * amount
+    );
+  }
+
+  function darken(h, amount) {
+    var c = hexToRgb(h);
+    return rgbToHex(c.r * (1 - amount), c.g * (1 - amount), c.b * (1 - amount));
+  }
+
+  function setSwatch(el, color) {
+    if (!el) return;
+    var c = normalize(color);
+    if (!c) return;
+    el.style.background = c;
+    el.setAttribute('data-color', c);
+  }
+
+  function markActive(color) {
+    var n = normalize(color);
+    document.querySelectorAll('.color-swatches .swatch').forEach(function (btn) {
+      var active = normalize(btn.getAttribute('data-color')) === n;
+      btn.classList.toggle('is-active', active);
+      btn.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
+  }
+
+  function sync(value) {
+    var n = normalize(value) || DEFAULT;
+    wheel.value = n;
+    hex.value = n;
+    if (swatches) {
+      var deep = darken(n, 0.18);
+      var soft = mixWhite(n, 0.35);
+      var cream = mixWhite(n, 0.92);
+      setSwatch(swatches.querySelector('[data-role="primary"]'), n);
+      setSwatch(swatches.querySelector('[data-role="deep"]'), deep);
+      setSwatch(swatches.querySelector('[data-role="soft"]'), soft);
+      setSwatch(swatches.querySelector('[data-role="cream"]'), cream);
+    }
+    markActive(n);
+  }
+
+  function onSwatchClick(e) {
+    var btn = e.target.closest('.swatch');
+    if (!btn) return;
+    e.preventDefault();
+    sync(btn.getAttribute('data-color') || btn.style.backgroundColor);
+  }
+
+  wheel.addEventListener('input', function () { sync(wheel.value); });
+  wheel.addEventListener('change', function () { sync(wheel.value); });
+  hex.addEventListener('input', function () {
+    var n = normalize(hex.value);
+    if (n) sync(n);
+  });
+  hex.addEventListener('change', function () { sync(hex.value); });
+  hex.addEventListener('blur', function () { sync(hex.value); });
+  resetBtn.addEventListener('click', function (e) {
+    e.preventDefault();
+    sync(DEFAULT);
+  });
+  if (presets) presets.addEventListener('click', onSwatchClick);
+  if (swatches) swatches.addEventListener('click', onSwatchClick);
+  sync(hex.value);
+})();
+</script>
+<%- include('partials/layout-end') %>

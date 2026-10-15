@@ -1,0 +1,93 @@
+  <div class="cta-footer">
+    <section class="cta reveal">
+      <div class="cta-media">
+        <video src="/assets/video/cta.mp4" autoplay muted loop playsinline poster="/assets/images/cta-evening-living-room.jpg"></video>
+      </div>
+      <div class="cta-overlay"></div>
+      <div class="cta-content">
+        <h2>Let’s Shape Your <span class="serif">Next Interior.</span></h2>
+        <a href="/contact" class="btn btn-white">
+          Request a Consultation
+          <span class="btn-arrow"><img src="/assets/images/arrow.svg" alt="" /></span>
+        </a>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="container-wide">
+        <div class="footer-top">
+          <div class="footer-brand">
+            <a href="/" class="logo">
+              <span class="logo-mark" aria-hidden="true">
+                <img src="/assets/images/teak-terrazzo-icon.png" alt="" width="40" height="40" />
+              </span>
+              <%= settings.brandName %>
+            </a>
+            <div class="footer-contact">
+              <div class="footer-block">
+                <div class="footer-label">
+                  <span class="footer-ico" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M12 21s6.5-5.2 6.5-10.2a6.5 6.5 0 1 0-13 0C5.5 15.8 12 21 12 21Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="10.8" r="2.2" stroke="currentColor" stroke-width="1.5"/></svg>
+                  </span>
+                  Address
+                </div>
+                <h3><%= settings.address %></h3>
+                <% if (settings.mapsUrl) { %>
+                  <a class="phone footer-maps" href="<%= settings.mapsUrl %>" target="_blank" rel="noopener">View on Google Maps</a>
+                <% } %>
+              </div>
+            </div>
+          </div>
+          <div class="footer-col">
+            <h4>Explore</h4>
+            <a href="/" class="footer-link">Home</a>
+            <a href="/about" class="footer-link">About Us</a>
+            <a href="/services" class="footer-link">Services</a>
+            <a href="/portfolio" class="footer-link">Portfolio</a>
+            <a href="/contact" class="footer-link">Contact</a>
+          </div>
+          <div class="footer-col footer-contact-col">
+            <h4>Contact</h4>
+            <div class="footer-mini-block">
+              <span class="footer-mini-label">Phone</span>
+              <a class="footer-link" href="tel:<%= settings.phone.replace(/[^\d+]/g,'') %>"><%= settings.phone %></a>
+              <% if (settings.phoneSecondary) { %>
+                <a class="footer-link" href="tel:<%= settings.phoneSecondary.replace(/[^\d+]/g,'') %>"><%= settings.phoneSecondary %></a>
+              <% } %>
+            </div>
+            <% if (settings.whatsapp) { %>
+            <div class="footer-mini-block">
+              <span class="footer-mini-label">WhatsApp</span>
+              <a class="footer-link" href="<%= settings.whatsapp %>" target="_blank" rel="noopener">Chat on WhatsApp</a>
+            </div>
+            <% } %>
+            <div class="footer-mini-block">
+              <span class="footer-mini-label">Email</span>
+              <a class="footer-link" href="mailto:<%= settings.email %>"><%= settings.email %></a>
+            </div>
+          </div>
+          <div class="footer-col footer-connect">
+            <h4>Stay informed</h4>
+            <form class="newsletter newsletter-stack" id="newsletterForm">
+              <input type="email" name="email" placeholder="Your email" required />
+              <button type="submit">Subscribe</button>
+            </form>
+            <p id="newsletterMsg" class="newsletter-msg"></p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span>© <%= new Date().getFullYear() %> <strong><%= settings.brandName %> LLP</strong></span>
+          <span class="footer-credit">
+            Designed &amp; Developed by
+            <a href="https://www.intellisoft.in" target="_blank" rel="noopener"><strong>Intellisoft</strong></a>
+          </span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="/vendor/lenis/lenis.min.js"></script>
+  <script src="/js/main.js"></script>
+  <script src="/js/forms.js"></script>
+</body>
+</html>

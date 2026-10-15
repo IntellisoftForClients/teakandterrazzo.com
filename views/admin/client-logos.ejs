@@ -1,0 +1,34 @@
+<%- include('partials/layout-start') %>
+<div class="admin-top">
+  <h1>Client Logos</h1>
+  <a class="btn btn-primary" href="/admin/client-logos/new">Add logo</a>
+</div>
+<p style="margin:-8px 0 20px;color:var(--muted);max-width:640px;">
+  These logos appear in the scrolling strip on the homepage. Delete all logos (or unpublish them) to hide the strip completely.
+</p>
+<div class="card">
+  <% if (!items.length) { %>
+    <p style="color:var(--muted);">No client logos yet. The homepage marquee is hidden until you add at least one published logo.</p>
+  <% } else { %>
+  <table>
+    <thead><tr><th></th><th>Name</th><th>Order</th><th>Published</th><th></th></tr></thead>
+    <tbody>
+      <% items.forEach(function(item) { %>
+        <tr>
+          <td><img class="thumb-sm" src="<%= item.imagePath %>" alt="<%= item.name %>" style="object-fit:contain;background:#fff;padding:4px;" /></td>
+          <td><%= item.name || '—' %></td>
+          <td><%= item.sortOrder %></td>
+          <td><%= item.published ? 'Yes' : 'No' %></td>
+          <td class="row-actions">
+            <a class="btn btn-ghost btn-sm" href="/admin/client-logos/<%= item.id %>/edit">Edit</a>
+            <form method="post" action="/admin/client-logos/<%= item.id %>/delete" onsubmit="return confirm('Delete this logo?');">
+              <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+  <% } %>
+</div>
+<%- include('partials/layout-end') %>

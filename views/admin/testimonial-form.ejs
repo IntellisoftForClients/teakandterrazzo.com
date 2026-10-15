@@ -1,0 +1,31 @@
+<%- include('partials/layout-start') %>
+<div class="admin-top">
+  <h1><%= item ? 'Edit testimonial' : 'New testimonial' %></h1>
+  <a class="btn btn-ghost" href="/admin/testimonials">Back</a>
+</div>
+<form class="card form-grid" method="post" action="<%= item ? '/admin/testimonials/' + item.id : '/admin/testimonials' %>" enctype="multipart/form-data">
+  <div>
+    <label>Quote</label>
+    <textarea name="quote" required><%= item ? item.quote : '' %></textarea>
+  </div>
+  <div>
+    <label>Author name</label>
+    <input name="authorName" required value="<%= item ? item.authorName : '' %>" />
+  </div>
+  <div>
+    <label>Author date label</label>
+    <input name="authorDate" value="<%= item ? item.authorDate : '' %>" />
+  </div>
+  <div>
+    <label>Sort order</label>
+    <input name="sortOrder" type="number" value="<%= item ? item.sortOrder : 0 %>" />
+  </div>
+  <div>
+    <label>Avatar</label>
+    <% if (item) { %><img class="thumb-sm" style="border-radius:50%;" src="<%= item.avatarPath %>" alt="" /><% } %>
+    <input name="image" type="file" accept="image/*" />
+  </div>
+  <label class="check"><input type="checkbox" name="published" <%= !item || item.published ? 'checked' : '' %> /> Published</label>
+  <div class="form-actions"><button class="btn btn-primary" type="submit">Save</button></div>
+</form>
+<%- include('partials/layout-end') %>

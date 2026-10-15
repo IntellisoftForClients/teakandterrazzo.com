@@ -1,0 +1,68 @@
+<%- include('partials/head') %>
+<section class="page-hero" id="hero">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="sep">/</span>
+      <a href="/blog">Blog</a>
+      <span class="sep">/</span>
+      <span><%= post.title %></span>
+    </nav>
+    <p style="opacity:0.8;margin-bottom:8px;"><%= post.publishedAt.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %></p>
+    <h1><%= post.title %></h1>
+  </div>
+</section>
+
+<section class="page-content">
+  <div class="container">
+    <div class="detail-hero-img reveal">
+      <img src="<%= post.coverPath %>" alt="<%= post.title %>" />
+    </div>
+
+    <article class="blog-article reveal">
+      <div class="meta-row">
+        <img src="/assets/images/designer-1.png" alt="<%= post.authorName %>" />
+        <div>
+          <strong><%= post.authorName %></strong>
+          <span><%= post.authorRole %></span>
+        </div>
+      </div>
+
+      <% if (sections && sections.length) { %>
+        <% sections.forEach(function(section) { %>
+          <% if (section.type === 'quote') { %>
+            <blockquote class="blog-quote">
+              <h5>“<%= section.text %>”</h5>
+              <span><%= section.cite || post.authorName %></span>
+            </blockquote>
+          <% } else { %>
+            <h5><%= section.title %></h5>
+            <p><%= section.body %></p>
+          <% } %>
+        <% }) %>
+      <% } else { %>
+        <p><%= post.excerpt || post.body || 'Insights and inspiration for modern interior living.' %></p>
+      <% } %>
+    </article>
+
+    <% if (related && related.length) { %>
+      <div class="related-blogs">
+        <div class="section-head reveal">
+          <h2 class="section-title">More Related Articles</h2>
+        </div>
+        <div class="blog-grid">
+          <% related.forEach(function(item) { %>
+            <a href="/blog/<%= item.slug %>" class="blog-card reveal">
+              <div class="thumb"><img src="<%= item.coverPath %>" alt="<%= item.title %>" /></div>
+              <div class="body">
+                <div class="date"><%= item.publishedAt.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %></div>
+                <h5><%= item.title %></h5>
+              </div>
+            </a>
+          <% }) %>
+        </div>
+      </div>
+    <% } %>
+  </div>
+</section>
+<%- include('partials/footer') %>

@@ -1,0 +1,33 @@
+<%- include('partials/layout-start') %>
+<div class="admin-top">
+  <h1><%= item ? 'Edit service' : 'New service' %></h1>
+  <a class="btn btn-ghost" href="/admin/services">Back</a>
+</div>
+<form class="card form-grid" method="post" action="<%= item ? '/admin/services/' + item.id : '/admin/services' %>" enctype="multipart/form-data">
+  <div>
+    <label>Title</label>
+    <input name="title" required value="<%= item ? item.title : '' %>" />
+  </div>
+  <div>
+    <label>Summary</label>
+    <textarea name="summary" required><%= item ? item.summary : '' %></textarea>
+  </div>
+  <div>
+    <label>Body</label>
+    <textarea name="body"><%= item ? item.body : '' %></textarea>
+  </div>
+  <div>
+    <label>Sort order</label>
+    <input name="sortOrder" type="number" value="<%= item ? item.sortOrder : 0 %>" />
+  </div>
+  <div>
+    <label>Image</label>
+    <% if (item) { %><img class="thumb-sm" src="<%= item.imagePath %>" alt="" style="margin-bottom:8px;" /><% } %>
+    <input name="image" type="file" accept="image/*" />
+  </div>
+  <label class="check"><input type="checkbox" name="published" <%= !item || item.published ? 'checked' : '' %> /> Published</label>
+  <div class="form-actions">
+    <button class="btn btn-primary" type="submit">Save</button>
+  </div>
+</form>
+<%- include('partials/layout-end') %>

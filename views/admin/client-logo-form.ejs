@@ -1,0 +1,23 @@
+<%- include('partials/layout-start') %>
+<div class="admin-top">
+  <h1><%= item ? 'Edit client logo' : 'New client logo' %></h1>
+  <a class="btn btn-ghost" href="/admin/client-logos">Back</a>
+</div>
+<form class="card form-grid" method="post" action="<%= item ? '/admin/client-logos/' + item.id : '/admin/client-logos' %>" enctype="multipart/form-data">
+  <div>
+    <label>Name (optional)</label>
+    <input name="name" value="<%= item ? item.name : '' %>" placeholder="Client or brand name" />
+  </div>
+  <div>
+    <label>Sort order</label>
+    <input name="sortOrder" type="number" value="<%= item ? item.sortOrder : 0 %>" />
+  </div>
+  <div>
+    <label>Logo image</label>
+    <% if (item) { %><img class="thumb-sm" src="<%= item.imagePath %>" alt="" style="object-fit:contain;background:#fff;padding:6px;margin-bottom:8px;" /><% } %>
+    <input name="image" type="file" accept="image/*" <%= item ? '' : 'required' %> />
+  </div>
+  <label class="check"><input type="checkbox" name="published" <%= !item || item.published ? 'checked' : '' %> /> Published</label>
+  <div class="form-actions"><button class="btn btn-primary" type="submit">Save</button></div>
+</form>
+<%- include('partials/layout-end') %>

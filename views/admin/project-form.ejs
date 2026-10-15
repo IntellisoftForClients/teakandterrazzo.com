@@ -1,0 +1,27 @@
+<%- include('partials/layout-start') %>
+<div class="admin-top">
+  <h1><%= item ? 'Edit project' : 'New project' %></h1>
+  <a class="btn btn-ghost" href="/admin/projects">Back</a>
+</div>
+<form class="card form-grid" method="post" action="<%= item ? '/admin/projects/' + item.id : '/admin/projects' %>" enctype="multipart/form-data">
+  <div>
+    <label>Title</label>
+    <input name="title" required value="<%= item ? item.title : '' %>" />
+  </div>
+  <div>
+    <label>Category</label>
+    <input name="category" value="<%= item ? item.category : 'Residential' %>" />
+  </div>
+  <div>
+    <label>Sort order</label>
+    <input name="sortOrder" type="number" value="<%= item ? item.sortOrder : 0 %>" />
+  </div>
+  <div>
+    <label>Image</label>
+    <% if (item) { %><img class="thumb-sm" src="<%= item.imagePath %>" alt="" style="margin-bottom:8px;" /><% } %>
+    <input name="image" type="file" accept="image/*" />
+  </div>
+  <label class="check"><input type="checkbox" name="published" <%= !item || item.published ? 'checked' : '' %> /> Published</label>
+  <div class="form-actions"><button class="btn btn-primary" type="submit">Save</button></div>
+</form>
+<%- include('partials/layout-end') %>

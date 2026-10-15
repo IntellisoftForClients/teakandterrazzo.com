@@ -1,0 +1,26 @@
+<%- include('partials/layout-start') %>
+<div class="admin-top">
+  <h1><%= item ? 'Edit process step' : 'New process step' %></h1>
+  <a class="btn btn-ghost" href="/admin/process">Back</a>
+</div>
+<form class="card form-grid" method="post" action="<%= item ? '/admin/process/' + item.id : '/admin/process' %>" enctype="multipart/form-data">
+  <div>
+    <label>Title</label>
+    <input name="title" required value="<%= item ? item.title : '' %>" />
+  </div>
+  <div>
+    <label>Body</label>
+    <textarea name="body" required><%= item ? item.body : '' %></textarea>
+  </div>
+  <div>
+    <label>Sort order</label>
+    <input name="sortOrder" type="number" value="<%= item ? item.sortOrder : 0 %>" />
+  </div>
+  <div>
+    <label>Image</label>
+    <% if (item) { %><img class="thumb-sm" src="<%= item.imagePath %>" alt="" style="margin-bottom:8px;" /><% } %>
+    <input name="image" type="file" accept="image/*" />
+  </div>
+  <div class="form-actions"><button class="btn btn-primary" type="submit">Save</button></div>
+</form>
+<%- include('partials/layout-end') %>

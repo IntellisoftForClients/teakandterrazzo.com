@@ -1,0 +1,59 @@
+<%
+  const primaryColor = normalizeHex(settings && settings.primaryColor) || DEFAULT_PRIMARY;
+  const themeCss = buildThemeCss(primaryColor);
+  const brand = (settings && settings.brandName) || 'Teak & Terrazzo';
+  const seo = typeof pageSeo !== 'undefined' && pageSeo ? pageSeo : {};
+  const pageTitle = seo.title || title || brand;
+  const metaDescription = seo.description || [
+    (settings && settings.tagline) || 'Designing Beautiful Spaces Inspired by Modern Living',
+    `${brand} — boutique interior design & turnkey studio in Hyderabad.`,
+  ].join('. ');
+  const canonicalPath = seo.path || currentPath || '/';
+  const canonicalUrl = seo.canonical || absoluteUrl(siteUrl, canonicalPath);
+  const ogImage = absoluteUrl(siteUrl, seo.image || defaultOgImage(settings));
+  const ogType = seo.type || 'website';
+  const robots = seo.robots || 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
+  const jsonLdBlocks = Array.isArray(seo.jsonLd) ? seo.jsonLd.filter(Boolean) : [];
+%>
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= pageTitle %></title>
+  <meta name="description" content="<%= metaDescription %>" />
+  <meta name="robots" content="<%= robots %>" />
+  <meta name="author" content="<%= brand %>" />
+  <meta name="geo.region" content="IN-TG" />
+  <meta name="geo.placename" content="Hyderabad" />
+  <link rel="canonical" href="<%= canonicalUrl %>" />
+
+  <meta property="og:locale" content="en_IN" />
+  <meta property="og:type" content="<%= ogType %>" />
+  <meta property="og:site_name" content="<%= brand %>" />
+  <meta property="og:title" content="<%= pageTitle %>" />
+  <meta property="og:description" content="<%= metaDescription %>" />
+  <meta property="og:url" content="<%= canonicalUrl %>" />
+  <meta property="og:image" content="<%= ogImage %>" />
+  <meta property="og:image:alt" content="<%= seo.imageAlt || (brand + ' interior design studio in Hyderabad') %>" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="<%= pageTitle %>" />
+  <meta name="twitter:description" content="<%= metaDescription %>" />
+  <meta name="twitter:image" content="<%= ogImage %>" />
+
+  <meta name="theme-color" content="<%= primaryColor %>" />
+  <link rel="stylesheet" href="/vendor/lenis/lenis.css" />
+  <link rel="stylesheet" href="/css/styles.css" />
+  <style id="site-theme"><%- themeCss %></style>
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicon-180.png" />
+
+  <% jsonLdBlocks.forEach(function(block) { %>
+  <script type="application/ld+json"><%- JSON.stringify(block).replace(/</g, '\\u003c') %></script>
+  <% }) %>
+</head>
+<body>
+<%- include('header') %>

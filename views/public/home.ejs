@@ -1,0 +1,237 @@
+<%- include('partials/head') %>
+
+<main>
+  <section class="hero" id="hero">
+    <div class="hero-media">
+      <img src="/assets/images/hero-living-room-modern.jpg" alt="Modern living room with natural light, Hyderabad interior design" />
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1 class="hero-title">
+        <span class="line">Designing Beautiful</span>
+        <span class="line"><span class="serif">Spaces</span></span>
+      </h1>
+      <p class="hero-sub">Thoughtfully designed interiors in Hyderabad. Seamlessly executed.</p>
+      <a href="/contact" class="btn btn-white">
+        Book a Consultation
+        <span class="btn-arrow"><img src="/assets/images/arrow.svg" alt="" /></span>
+      </a>
+    </div>
+  </section>
+
+  <% if (typeof clientLogos !== 'undefined' && clientLogos.length) { %>
+  <section class="marquee-section" aria-label="Trusted by brands">
+    <div class="marquee">
+      <div class="marquee-track">
+        <% clientLogos.forEach(function(logo) { %>
+          <img src="<%= logo.imagePath %>" alt="<%= logo.name || 'Client logo' %>" />
+        <% }) %>
+      </div>
+      <div class="marquee-track" aria-hidden="true">
+        <% clientLogos.forEach(function(logo) { %>
+          <img src="<%= logo.imagePath %>" alt="" />
+        <% }) %>
+      </div>
+    </div>
+  </section>
+  <% } %>
+
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-brand reveal">
+          <img
+            src="/assets/images/teak-terrazzo-logo.jpg"
+            alt="Teak &amp; Terrazzo Interior Design Studio"
+            width="720"
+            height="720"
+          />
+        </div>
+        <div class="about-copy reveal">
+          <span class="pill">About Us</span>
+          <p class="designer-label">Boutique Interior Design Studio · Hyderabad</p>
+          <h2 class="about-headline"><%= settings.aboutText %></h2>
+          <p class="about-support">Whether it’s a contemporary apartment, a luxurious villa, a stylish office, or a retail space, our goal is simple — interiors that exceed expectations in design, quality, and execution. From concept to handover, we manage every stage with meticulous attention to detail, seamless coordination, and transparent communication.</p>
+          <a href="/about" class="btn btn-dark">
+            More About Us
+            <span class="btn-arrow"><img src="/assets/images/arrow-dark.svg" alt="" /></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats" id="stats">
+    <div class="container-wide">
+      <div class="stats-grid">
+        <article class="stat-card reveal">
+          <div class="stat-icon"><img src="/assets/images/icon-handshake.svg" alt="" /></div>
+          <div class="stat-value">Design</div>
+          <div class="stat-label">Person-first interiors</div>
+        </article>
+        <article class="stat-card reveal">
+          <div class="stat-icon"><img src="/assets/images/icon-nodes.svg" alt="" /></div>
+          <div class="stat-value">Plan</div>
+          <div class="stat-label">Precise space planning</div>
+        </article>
+        <article class="stat-card reveal">
+          <div class="stat-icon"><img src="/assets/images/icon-bulb.svg" alt="" /></div>
+          <div class="stat-value">Craft</div>
+          <div class="stat-label">Quality materials &amp; detailing</div>
+        </article>
+        <article class="stat-card reveal">
+          <div class="stat-icon"><img src="/assets/images/icon-dots.svg" alt="" /></div>
+          <div class="stat-value">Deliver</div>
+          <div class="stat-label">Turnkey execution</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="services services-stack" id="services">
+    <div class="container-wide">
+      <div class="section-head reveal">
+        <span class="pill">What We Do</span>
+        <h2 class="section-title">Our Services</h2>
+      </div>
+      <div class="services-list">
+        <% services.forEach(function(service, idx) { %>
+          <div class="service-stack-item" style="--stack-i: <%= idx %>;">
+            <a href="/services/<%= service.slug %>" class="service-card">
+              <div class="service-copy">
+                <h3><%= service.title %></h3>
+                <p><%= service.summary %></p>
+                <span class="link-arrow">See More <img src="/assets/images/arrow.svg" alt="" /></span>
+              </div>
+              <div class="thumb"><img src="<%= service.imagePath %>" alt="<%= service.title %>" /></div>
+            </a>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+  </section>
+
+  <section class="works" id="works">
+    <div class="container-wide">
+      <div class="section-head row reveal">
+        <div>
+          <span class="pill">Works</span>
+          <h2 class="section-title">Selected Projects</h2>
+        </div>
+        <a href="/portfolio" class="btn btn-dark">
+          View All Projects
+          <span class="btn-arrow"><img src="/assets/images/arrow-dark.svg" alt="" /></span>
+        </a>
+      </div>
+      <div class="works-grid">
+        <% if (projects[0]) { %>
+          <a href="/portfolio/<%= projects[0].slug %>" class="work-card tall reveal">
+            <img src="<%= projects[0].imagePath %>" alt="<%= projects[0].title %>" />
+            <div class="work-meta">
+              <span class="pill pill-light"><%= projects[0].category %></span>
+              <h3><%= projects[0].title %></h3>
+            </div>
+          </a>
+        <% } %>
+        <div class="works-side">
+          <% projects.slice(1, 3).forEach(function(project) { %>
+            <a href="/portfolio/<%= project.slug %>" class="work-card reveal">
+              <img src="<%= project.imagePath %>" alt="<%= project.title %>" />
+              <div class="work-meta">
+                <span class="pill pill-light"><%= project.category %></span>
+                <h3><%= project.title %></h3>
+              </div>
+            </a>
+          <% }) %>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="process" id="process">
+    <div class="container-wide">
+      <div class="section-head row reveal">
+        <div>
+          <span class="pill">Process</span>
+          <h2 class="section-title">How We Work</h2>
+        </div>
+        <a href="/contact" class="btn btn-dark">
+          Contact Us
+          <span class="btn-arrow"><img src="/assets/images/arrow-dark.svg" alt="" /></span>
+        </a>
+      </div>
+      <div class="process-layout">
+        <div class="process-steps reveal">
+          <% processSteps.forEach(function(step, idx) { %>
+            <button class="process-step<%= idx === 0 ? ' active' : '' %>" data-step="<%= idx %>" type="button">
+              <div class="process-step-head">
+                <h5><%= step.title %></h5>
+                <span class="process-toggle" aria-hidden="true"></span>
+              </div>
+              <p><%= step.body %></p>
+            </button>
+          <% }) %>
+        </div>
+        <div class="process-visual reveal">
+          <% processSteps.forEach(function(step, idx) { %>
+            <div class="slide<%= idx === 0 ? ' active' : '' %>"><img src="<%= step.imagePath %>" alt="<%= step.title %>" /></div>
+          <% }) %>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonials" id="testimonials">
+    <div class="container-wide">
+      <div class="section-head reveal">
+        <span class="pill">Testimonial</span>
+        <h2 class="section-title">What Clients Say</h2>
+      </div>
+      <div class="testimonial-slider reveal">
+        <div class="testimonial-viewport" id="testimonialViewport" aria-label="Testimonials carousel. Drag to scroll.">
+          <div class="testimonial-track" id="testimonialTrack">
+            <% testimonials.forEach(function(t) { %>
+              <article class="testimonial-card">
+                <blockquote><%= t.quote %></blockquote>
+                <div class="testimonial-author">
+                  <div>
+                    <strong><%= t.authorName %></strong>
+                    <span><%= t.authorDate %></span>
+                  </div>
+                </div>
+              </article>
+            <% }) %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="blog" id="blog">
+    <div class="container-wide">
+      <div class="section-head row reveal">
+        <div>
+          <span class="pill">Blog</span>
+          <h2 class="section-title">Design Notes &amp; Insights</h2>
+        </div>
+        <a href="/blog" class="btn btn-dark">
+          See All Blogs
+          <span class="btn-arrow"><img src="/assets/images/arrow-dark.svg" alt="" /></span>
+        </a>
+      </div>
+      <div class="blog-grid">
+        <% blogs.forEach(function(post) { %>
+          <a href="/blog/<%= post.slug %>" class="blog-card reveal">
+            <div class="thumb"><img src="<%= post.coverPath %>" alt="<%= post.title %>" /></div>
+            <div class="body">
+              <div class="date"><%= post.publishedAt.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) %></div>
+              <h5><%= post.title %></h5>
+            </div>
+          </a>
+        <% }) %>
+      </div>
+    </div>
+  </section>
+</main>
+
+<%- include('partials/footer') %>
