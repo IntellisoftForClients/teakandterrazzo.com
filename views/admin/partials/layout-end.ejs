@@ -33,5 +33,56 @@
   });
 })();
 </script>
+<script>
+(function () {
+  var badge = document.getElementById('leadsNewBadge');
+  if (!badge) return;
+  var timer = null;
+
+  function renderCount(count) {
+    var n = Number(count) || 0;
+    badge.textContent = String(n);
+    if (n > 0) badge.removeAttribute('hidden');
+    else badge.setAttribute('hidden', '');
+  }
+
+  function poll() {
+    if (document.hidden) return;
+    fetch('/admin/api/leads-count', {
+      credentials: 'same-origin',
+      headers: { Accept: 'application/json' },
+    })
+      .then(function (res) {
+        if (!res.ok) throw new Error('count failed');
+        return res.json();
+      })
+      .then(function (data) {
+        renderCount(data && data.newCount);
+      })
+      .catch(function () {});
+  }
+
+  function start() {
+    if (timer) return;
+    timer = setInterval(poll, 10000);
+  }
+
+  function stop() {
+    if (!timer) return;
+    clearInterval(timer);
+    timer = null;
+  }
+
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) stop();
+    else {
+      poll();
+      start();
+    }
+  });
+
+  start();
+})();
+</script>
 </body>
 </html>

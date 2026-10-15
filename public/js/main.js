@@ -90,6 +90,14 @@
   if (lenis) lenis.on('scroll', updateHeader);
   updateHeader();
 
+  /* ----- Soft page enter (all public pages) ----- */
+  Array.from(document.body.children).forEach((el) => {
+    if (el.classList.contains('site-header')) return;
+    if (el.classList.contains('nav-overlay')) return;
+    if (el.tagName === 'SCRIPT' || el.tagName === 'STYLE') return;
+    el.classList.add('page-fade');
+  });
+
   /* ----- Hero / page-hero entrance ----- */
   requestAnimationFrame(() => {
     document.body.classList.add('is-ready');
@@ -98,6 +106,56 @@
     const pageHero = document.querySelector('.page-hero');
     if (pageHero) pageHero.classList.add('hero-in');
   });
+
+  /* ----- Soft page navigation (View Transitions) ----- */
+  function isSoftNavLink(anchor) {
+    if (!anchor || !anchor.href) return false;
+    if (anchor.hasAttribute('download')) return false;
+    if (anchor.target && anchor.target !== '_self') return false;
+    if (anchor.getAttribute('rel')?.includes('external')) return false;
+
+    let url;
+    try {
+      url = new URL(anchor.href, window.location.href);
+    } catch {
+      return false;
+    }
+
+    if (url.origin !== window.location.origin) return false;
+    if (url.pathname.startsWith('/admin')) return false;
+    if (url.pathname === window.location.pathname && url.search === window.location.search && url.hash) {
+      return false;
+    }
+    if (url.href === window.location.href) return false;
+    return true;
+  }
+
+  if (!reduceMotion && typeof document.startViewTransition === 'function') {
+    document.addEventListener(
+      'click',
+      (e) => {
+        if (e.defaultPrevented) return;
+        if (e.button !== 0) return;
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+
+        const anchor = e.target.closest('a[href]');
+        if (!isSoftNavLink(anchor)) return;
+
+        e.preventDefault();
+        const href = anchor.href;
+
+        const transition = document.startViewTransition(() => {
+          window.location.assign(href);
+          return new Promise(() => {});
+        });
+
+        if (transition && transition.finished) {
+          transition.finished.catch(() => {});
+        }
+      },
+      true
+    );
+  }
 
   /* ----- Reveal on scroll ----- */
   // Stagger siblings in grids / lists (like Framer)

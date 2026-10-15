@@ -1,12 +1,54 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const slugify = require('slugify');
+const ExcelJS = require('exceljs');
 const prisma = require('../lib/prisma');
 const { requireAdmin } = require('../middleware/auth');
 const { upload } = require('../lib/upload');
 const { DEFAULT_PRIMARY, normalizeHex, buildPalette } = require('../lib/theme');
 
 const router = express.Router();
+
+function normalizeIds(value) {
+  if (value == null || value === '') return [];
+  const list = Array.isArray(value) ? value : [value];
+  return list.map((id) => String(id || '').trim()).filter(Boolean);
+}
+
+async function buildLeadsWorkbook(leads) {
+  const workbook = new ExcelJS.Workbook();
+  workbook.creator = 'Teak & Terrazzo';
+  workbook.created = new Date();
+  const sheet = workbook.addWorksheet('Leads');
+  sheet.columns = [
+    { header: 'Name', key: 'name', width: 22 },
+    { header: 'Email', key: 'email', width: 28 },
+    { header: 'Phone', key: 'phone', width: 18 },
+    { header: 'Service', key: 'service', width: 20 },
+    { header: 'Budget', key: 'budget', width: 16 },
+    { header: 'Timeline', key: 'timeline', width: 16 },
+    { header: 'Message', key: 'message', width: 48 },
+    { header: 'Status', key: 'status', width: 12 },
+    { header: 'Created At', key: 'createdAt', width: 22 },
+  ];
+  sheet.getRow(1).font = { bold: true };
+  leads.forEach((lead) => {
+    sheet.addRow({
+      name: lead.name,
+      email: lead.email,
+      phone: lead.phone || '',
+      service: lead.service || '',
+      budget: lead.budget || '',
+      timeline: lead.timeline || '',
+      message: lead.message || '',
+      status: lead.status || '',
+      createdAt: lead.createdAt
+        ? lead.createdAt.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })
+        : '',
+    });
+  });
+  return workbook.xlsx.writeBuffer();
+}
 
 function makeSlug(text) {
   return slugify(text, { lower: true, strict: true });
@@ -41,6 +83,16 @@ router.post('/admin/logout', requireAdmin, (req, res) => {
   req.session.destroy(() => res.redirect('/admin/login'));
 });
 
+// ---- Live nav badge ----
+router.get('/admin/api/leads-count', requireAdmin, async (req, res, next) => {
+  try {
+    const newCount = await prisma.contactLead.count({ where: { status: 'new' } });
+    res.json({ newCount });
+  } catch (err) {
+    next(err);
+  }
+});
+
 // ---- Dashboard ----
 router.get('/admin', requireAdmin, async (req, res, next) => {
   try {
@@ -72,6 +124,38 @@ router.get('/admin/leads', requireAdmin, async (req, res, next) => {
       orderBy: { createdAt: 'desc' },
     });
     res.render('admin/leads', { title: 'Leads', leads, status });
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post('/admin/leads/export', requireAdmin, async (req, res, next) => {
+  try {
+    const status = String(req.body.status || 'all');
+    const ids = normalizeIds(req.body.ids);
+    const where =
+      ids.length > 0
+        ? { id: { in: ids } }
+        : status === 'all' || !['new', 'read', 'archived'].includes(status)
+          ? {}
+          : { status };
+
+    const leads = await prisma.contactLead.findMany({
+      where,
+      orderBy: { createdAt: 'desc' },
+    });
+
+    const buffer = await buildLeadsWorkbook(leads);
+    const stamp = new Date().toISOString().slice(0, 10);
+    res.setHeader(
+      'Content-Type',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    );
+    res.setHeader(
+      'Content-Disposition',
+      `attachment; filename="teak-terrazzo-leads-${stamp}.xlsx"`
+    );
+    res.send(Buffer.from(buffer));
   } catch (err) {
     next(err);
   }

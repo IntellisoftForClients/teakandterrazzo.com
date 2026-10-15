@@ -26,7 +26,10 @@
     </div>
     <nav class="admin-nav">
       <a href="/admin" class="<%= currentPath === '/admin' ? 'active' : '' %>">Overview</a>
-      <a href="/admin/leads" class="<%= currentPath.startsWith('/admin/leads') ? 'active' : '' %>">Leads</a>
+      <a href="/admin/leads" class="<%= currentPath.startsWith('/admin/leads') ? 'active' : '' %>">
+        <span>Leads</span>
+        <span class="nav-badge" id="leadsNewBadge"<%= (typeof newLeadsCount !== 'undefined' && newLeadsCount) ? '' : ' hidden' %>><%= typeof newLeadsCount !== 'undefined' ? newLeadsCount : 0 %></span>
+      </a>
       <a href="/admin/services" class="<%= currentPath.startsWith('/admin/services') ? 'active' : '' %>">Services</a>
       <a href="/admin/projects" class="<%= currentPath.startsWith('/admin/projects') ? 'active' : '' %>">Projects</a>
       <a href="/admin/blog" class="<%= currentPath.startsWith('/admin/blog') ? 'active' : '' %>">Blog</a>

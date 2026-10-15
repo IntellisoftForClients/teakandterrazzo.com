@@ -73,6 +73,10 @@ img { max-width: 100%; display: block; }
 }
 .admin-nav { display: flex; flex-direction: column; gap: 4px; flex: 1; }
 .admin-nav a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
   padding: 10px 12px;
   border-radius: 10px;
   color: rgba(255,255,255,0.82);
@@ -80,6 +84,20 @@ img { max-width: 100%; display: block; }
   font-size: 0.95rem;
 }
 .admin-nav a:hover, .admin-nav a.active { background: rgba(255,255,255,0.1); color: #fff; }
+.admin-nav .nav-badge {
+  min-width: 22px;
+  height: 22px;
+  padding: 0 7px;
+  border-radius: 999px;
+  background: #c45c26;
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 22px;
+  text-align: center;
+  flex-shrink: 0;
+}
+.admin-nav .nav-badge[hidden] { display: none; }
 .admin-sidebar form { margin-top: auto; }
 .admin-sidebar button.logout {
   width: 100%;
@@ -183,6 +201,22 @@ th { color: var(--muted); font-weight: 600; font-size: 0.8rem; text-transform: u
 .badge.new { background: var(--teak); color: #fff; }
 .badge.read { background: var(--stone); }
 .badge.archived { background: #cfc9c4; color: #555; }
+
+.leads-table .check-col {
+  width: 40px;
+  text-align: center;
+  vertical-align: middle;
+}
+.leads-table .check-col input {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+.export-hint {
+  margin: 12px 4px 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
 
 .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
 .filters a {

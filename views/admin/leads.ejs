@@ -1,31 +1,78 @@
 <%- include('partials/layout-start') %>
-<div class="admin-top">
-  <h1>Leads</h1>
-</div>
-<div class="filters">
-  <a href="/admin/leads?status=all" class="<%= status === 'all' ? 'active' : '' %>">All</a>
-  <a href="/admin/leads?status=new" class="<%= status === 'new' ? 'active' : '' %>">New</a>
-  <a href="/admin/leads?status=read" class="<%= status === 'read' ? 'active' : '' %>">Read</a>
-  <a href="/admin/leads?status=archived" class="<%= status === 'archived' ? 'active' : '' %>">Archived</a>
-</div>
-<div class="card">
-  <table>
-    <thead><tr><th>Name</th><th>Email</th><th>Service</th><th>Status</th><th>Date</th><th></th></tr></thead>
-    <tbody>
-      <% if (!leads.length) { %>
-        <tr><td colspan="6" style="color:var(--muted);">No leads found.</td></tr>
-      <% } %>
-      <% leads.forEach(function(lead) { %>
-        <tr>
-          <td><%= lead.name %></td>
-          <td><%= lead.email %></td>
-          <td><%= lead.service %></td>
-          <td><span class="badge <%= lead.status %>"><%= lead.status %></span></td>
-          <td><%= lead.createdAt.toLocaleString() %></td>
-          <td><a class="btn btn-ghost btn-sm" href="/admin/leads/<%= lead.id %>">View</a></td>
-        </tr>
-      <% }) %>
-    </tbody>
-  </table>
-</div>
+<form method="post" action="/admin/leads/export" id="leadsExportForm">
+  <input type="hidden" name="status" value="<%= status %>" />
+  <div class="admin-top">
+    <h1>Leads</h1>
+    <button class="btn btn-dark btn-sm" type="submit">Export Excel</button>
+  </div>
+  <div class="filters">
+    <a href="/admin/leads?status=all" class="<%= status === 'all' ? 'active' : '' %>">All</a>
+    <a href="/admin/leads?status=new" class="<%= status === 'new' ? 'active' : '' %>">New</a>
+    <a href="/admin/leads?status=read" class="<%= status === 'read' ? 'active' : '' %>">Read</a>
+    <a href="/admin/leads?status=archived" class="<%= status === 'archived' ? 'active' : '' %>">Archived</a>
+  </div>
+  <div class="card">
+    <div class="table-wrap">
+      <table class="leads-table">
+        <thead>
+          <tr>
+            <th class="check-col">
+              <input type="checkbox" id="selectAllLeads" aria-label="Select all leads" <%= leads.length ? '' : 'disabled' %> />
+            </th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Service</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (!leads.length) { %>
+            <tr><td colspan="7" style="color:var(--muted);">No leads found.</td></tr>
+          <% } %>
+          <% leads.forEach(function(lead) { %>
+            <tr>
+              <td class="check-col">
+                <input type="checkbox" class="lead-check" name="ids" value="<%= lead.id %>" aria-label="Select <%= lead.name %>" />
+              </td>
+              <td><%= lead.name %></td>
+              <td><%= lead.email %></td>
+              <td><%= lead.service %></td>
+              <td><span class="badge <%= lead.status %>"><%= lead.status %></span></td>
+              <td><%= lead.createdAt.toLocaleString() %></td>
+              <td><a class="btn btn-ghost btn-sm" href="/admin/leads/<%= lead.id %>">View</a></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+    <% if (leads.length) { %>
+      <p class="export-hint">Checked rows export only those leads. Leave unchecked to export all in this filter.</p>
+    <% } %>
+  </div>
+</form>
+<script>
+  (function () {
+    var selectAll = document.getElementById('selectAllLeads');
+    var checks = Array.prototype.slice.call(document.querySelectorAll('.lead-check'));
+    if (!selectAll || !checks.length) return;
+
+    function syncSelectAll() {
+      var total = checks.length;
+      var checked = checks.filter(function (el) { return el.checked; }).length;
+      selectAll.checked = checked === total;
+      selectAll.indeterminate = checked > 0 && checked < total;
+    }
+
+    selectAll.addEventListener('change', function () {
+      checks.forEach(function (el) { el.checked = selectAll.checked; });
+      selectAll.indeterminate = false;
+    });
+
+    checks.forEach(function (el) {
+      el.addEventListener('change', syncSelectAll);
+    });
+  })();
+</script>
 <%- include('partials/layout-end') %>
